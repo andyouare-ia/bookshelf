@@ -4,7 +4,7 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    # Here is where you define ROOT fields
+    # Here is where you define ROOT fields - fields that don't belong to anything
     # They will be entry points for queries on your schema.
 
     # Other ways of setting this up: creating separate files for each "resolver"
@@ -15,6 +15,13 @@ module Types
 
     def author(id:)
       ::Author.find(id)
+    end
+
+    # array of higher types example
+    field :authors, [Types::AuthorType], null: true, description: "Returns all the authors"
+
+    def authors
+      ::Author.all
     end
 
     # EXAMPLE:
